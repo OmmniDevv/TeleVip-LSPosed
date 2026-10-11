@@ -8,8 +8,8 @@ android {
         applicationId "com.my.televip"
         minSdk 27
         targetSdk 36
-        versionCode 337
-        versionName "3.6.5"
+        versionCode 335
+        versionName "3.6.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -44,7 +44,7 @@ tasks.register("copyLargestDexAsJava") {
     dependsOn(":settingsadapter:assembleDebug")
 
     doLast {
-        def apkFile = fileTree("$rootDir/settingsadapter/build/outputs/apk/debug")
+        def apkFile = fileTree("$rootDir/settingsadapter/build/intermediates/apk/debug")
                 .matching { include "*.apk" }
                 .singleFile
 

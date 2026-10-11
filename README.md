@@ -50,9 +50,9 @@ A powerful LSPosed module that adds advanced customization features to Telegram 
 
 | Client | Version |
 |---|---|
-| Telegram | 12.8.3 (69222) · 13.0.1 (71679) * |
+| Telegram | 12.8.3 (69222) |
 | Telegram Beta | 12.9.0 (69579) |
-| Telegram Web | 12.8.3 (69229) · 13.0.1 (71679) * |
+| Telegram Web | 12.8.3 (69229) |
 | TG Connect | 11.13.1 (11130109) |
 | Plus Messenger | 12.8.1.0 (22350) |
 | Nagram | 12.8.1 (1239) |
@@ -73,13 +73,6 @@ A powerful LSPosed module that adds advanced customization features to Telegram 
 | Momogram | 12.6.4 |
 | Forkgram Classic | 12.8.10.0 |
 | Turrit | 1.8.9.9.5 |
-
-> \* **Telegram 13.x note:** Telegram 13.0+ enables aggressive code obfuscation on the UI layer.
-> Core features (Ghost Mode, Hide Seen/Typing, Show Deleted Messages, Local Premium,
-> Download Boost, Anti-Revoke) are verified working on 13.0.1. Some UI-tweak features
-> (chat/profile customizations relying on `ChatActivity` etc.) are partially affected
-> until full obfuscation mappings are completed. The module fails gracefully:
-> unsupported hooks are skipped with a log entry instead of crashing.
 
 
 # 📢 Updates
@@ -108,11 +101,3 @@ Partially based on:
 
 
 Developed by **@mustafa1dev**
-
-## 🔧 This Fork
-
-**Maintained by [@OmmniDevv](https://github.com/OmmniDevv)** — updated with Telegram 13.x support.
-
-- Telegram 13.0.1 (71679) compatibility
-- Obfuscation mappings for R8-obfuscated UI layer
-- 13.x Settings UI injection (TeleVip entry button in Telegram Settings)

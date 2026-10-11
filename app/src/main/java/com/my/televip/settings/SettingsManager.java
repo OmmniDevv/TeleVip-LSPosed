@@ -29,16 +29,9 @@ public class SettingsManager {
         SettingsHook settings = new SettingsHook();
         if (SettingsActivityClass != null && SettingsActivity$SettingCell$FactoryClass != null) {
             settings.newSettings(SettingsActivityClass, SettingsActivity$SettingCell$FactoryClass, settingsController);
-        } else if (SettingsActivityClass != null) {
-            // Telegram 13.x: SettingsActivity exists (obfuscated) but SettingCell$Factory is gone.
-            // Use the 13.x injection path.
-            settings.newSettings13(SettingsActivityClass, settingsController);
         } else {
             settings.oldSettings(settingsController);
         }
-        // Reliable fallback: ProfileActivity is NOT obfuscated, always add entry there too.
-        // User can access via Profile -> menu -> TeleVip Settings.
-        settings.profileSettingsEntry(settingsController);
         if (ClientManager.is(ClientManager.Client.ForkgramClassic)) settings.oldSettings(settingsController);
         if (ClientManager.is(ClientManager.Client.Turrit)) Turrit.showGhostModeDialog(settingsController);
     }
