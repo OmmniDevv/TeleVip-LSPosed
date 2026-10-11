@@ -40,7 +40,7 @@ jobs:
           SIGNED_APK="app/build/outputs/apk/release/televip-3.6.3-telegram13-signed.apk"
           /usr/local/lib/android/sdk/build-tools/36.0.0/apksigner sign \
             --ks /tmp/televip.keystore \
-            --ks-pass:televip123 --key-pass:televip123 \
+            --ks-pass pass:televip123 --key-pass pass:televip123 \
             --out "$SIGNED_APK" "$APK"
           # Verify
           /usr/local/lib/android/sdk/build-tools/36.0.0/apksigner verify --print-certs "$SIGNED_APK" | head -3
