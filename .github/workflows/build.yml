@@ -37,7 +37,7 @@ jobs:
             -dname "CN=TeleVip, OU=TeleVip, O=TeleVip, L=Jakarta, ST=Jakarta, C=ID"
           # Sign the APK
           APK=$(ls app/build/outputs/apk/release/*.apk | head -1)
-          SIGNED_APK="app/build/outputs/apk/release/televip-3.6.3-telegram13-signed.apk"
+          SIGNED_APK="app/build/outputs/apk/release/televip-3.6.4-telegram13-signed.apk"
           /usr/local/lib/android/sdk/build-tools/36.0.0/apksigner sign \
             --ks /tmp/televip.keystore \
             --ks-pass pass:televip123 --key-pass pass:televip123 \
@@ -55,10 +55,10 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v3.6.3-telegram13-${{ github.run_number }}
+          tag_name: v3.6.4-telegram13-${{ github.run_number }}
           name: TeleVip v3.6.3 (Telegram 13.x support)
           body: |
-            ## ⬇️ DOWNLOAD: televip-3.6.3-telegram13-signed.apk
+            ## ⬇️ DOWNLOAD: televip-3.6.4-telegram13-signed.apk
 
             **Download file .apk di atas. JANGAN download "Source code (zip/tar.gz)" itu cuma source code mentah, bukan aplikasi.**
 
