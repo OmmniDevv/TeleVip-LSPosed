@@ -108,3 +108,11 @@ Partially based on:
 
 
 Developed by **@mustafa1dev**
+
+## 🔧 This Fork
+
+**Maintained by [@OmmniDevv](https://github.com/OmmniDevv)** — updated with Telegram 13.x support.
+
+- Telegram 13.0.1 (71679) compatibility
+- Obfuscation mappings for R8-obfuscated UI layer
+- 13.x Settings UI injection (TeleVip entry button in Telegram Settings)
