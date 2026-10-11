@@ -58,11 +58,23 @@ jobs:
           tag_name: v3.6.3-telegram13-${{ github.run_number }}
           name: TeleVip v3.6.3 (Telegram 13.x support)
           body: |
+            ## ⬇️ DOWNLOAD: televip-3.6.3-telegram13-signed.apk
+
+            **Download file .apk di atas. JANGAN download "Source code (zip/tar.gz)" itu cuma source code mentah, bukan aplikasi.**
+
+            ---
+
             TeleVip LSPosed module with Telegram 13.x support.
 
             - Supports Telegram 13.0.1 (71679) and 12.8.3 (69222)
             - Core features verified: Ghost Mode, Hide Seen/Typing, Show Deleted Messages, Local Premium, Download Boost
             - See README for full 13.x compatibility notes
+
+            ### Cara install:
+            1. Download file .apk dari release ini
+            2. Install seperti APK biasa
+            3. Aktifkan modul di LSPosed, centang Telegram
+            4. Restart Telegram
 
             > Note: This fork is signed with a new key. Uninstall the original TeleVip before installing.
           files: ${{ env.SIGNED_APK }}
