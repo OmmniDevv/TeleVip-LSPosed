@@ -259,5 +259,53 @@ public class SettingsHook {
             Logger.e(t);
         }
     }
+
+    /**
+     * Reliable fallback: Add TeleVip Settings entry to ProfileActivity menu.
+     * ProfileActivity is NOT obfuscated, so this always works.
+     * User taps their profile -> menu -> TeleVip Settings.
+     */
+    public void profileSettingsEntry(SettingsController settingsController) {
+        try {
+            Class<?> profileClass = ClassLoad.getClass(ClassNames.PROFILE_ACTIVITY);
+            if (profileClass == null) return;
+
+            // Hook createActionBarMenu to add our item
+            HMethod.hookMethod(profileClass, "createActionBarMenu", boolean.class, new BaseMethodHook() {
+                @Override
+                protected void afterMethod(MethodHookParam param) {
+                    try {
+                        Object thisObject = param.thisObject;
+                        // Get the ActionBarMenu via reflection
+                        Object actionBar = XposedHelpers.callMethod(thisObject, "getActionBar");
+                        if (actionBar == null) return;
+                        Object menu = XposedHelpers.callMethod(actionBar, "createMenu");
+                        if (menu == null) return;
+                        // Add TeleVip Settings item (ID 8353848)
+                        XposedHelpers.callMethod(menu, "addItem", 8353848, "👻 TeleVip Settings");
+                    } catch (Throwable t) {
+                        Logger.e(t);
+                    }
+                }
+            });
+
+            // Hook onItemClick to handle our item
+            HMethod.hookMethod(profileClass, "onItemClick", int.class, new BaseMethodHook() {
+                @Override
+                protected void afterMethod(MethodHookParam param) {
+                    try {
+                        int id = (int) param.args[0];
+                        if (id == 8353848) {
+                            settingsController.openView();
+                        }
+                    } catch (Throwable t) {
+                        Logger.e(t);
+                    }
+                }
+            });
+        } catch (Throwable t) {
+            Logger.e(t);
+        }
+    }
 }
 

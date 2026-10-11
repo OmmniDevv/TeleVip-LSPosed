@@ -36,6 +36,9 @@ public class SettingsManager {
         } else {
             settings.oldSettings(settingsController);
         }
+        // Reliable fallback: ProfileActivity is NOT obfuscated, always add entry there too.
+        // User can access via Profile -> menu -> TeleVip Settings.
+        settings.profileSettingsEntry(settingsController);
         if (ClientManager.is(ClientManager.Client.ForkgramClassic)) settings.oldSettings(settingsController);
         if (ClientManager.is(ClientManager.Client.Turrit)) Turrit.showGhostModeDialog(settingsController);
     }
