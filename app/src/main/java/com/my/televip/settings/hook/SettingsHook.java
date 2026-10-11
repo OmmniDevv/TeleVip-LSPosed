@@ -206,7 +206,7 @@ public class SettingsHook {
 
                                     android.widget.Button btn = new android.widget.Button(ctx);
                                     btn.setTag("televip_settings_entry");
-                                    btn.setText("👻 TeleVip Settings");
+                                    btn.setText("👻 TeleVip Settings\nby @OmmniDevv");
                                     btn.setAllCaps(false);
                                     btn.setTextColor(0xFFFFFFFF);
                                     btn.setBackgroundColor(0xFF8B5CF6);
