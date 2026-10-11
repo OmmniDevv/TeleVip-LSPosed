@@ -5,12 +5,24 @@
    "r": "org.telegram.ui.ActionBar.f2"
   },
   {
+   "o": "org.telegram.ui.ActionBar.ActionBar",
+   "r": "org.telegram.ui.ActionBar.l"
+  },
+  {
+   "o": "org.telegram.ui.ActionBar.ActionBarMenuOnItemClick",
+   "r": "org.telegram.ui.ActionBar.k"
+  },
+  {
    "o": "org.telegram.ui.ChatActivity",
    "r": "org.telegram.ui.go"
   },
   {
    "o": "org.telegram.ui.SettingsActivity",
    "r": "org.telegram.ui.az"
+  },
+  {
+   "o": "org.telegram.ui.Cells.ChatMessageCell",
+   "r": "org.telegram.ui.Cells.t1"
   }
  ],
  "fields": [
@@ -40,6 +52,11 @@
    "c": "ChatActivity",
    "o": "fillMessageMenu",
    "r": "q8"
+  },
+  {
+   "c": "PhotoViewer",
+   "o": "getInstance",
+   "r": "t1"
   }
  ]
 }
