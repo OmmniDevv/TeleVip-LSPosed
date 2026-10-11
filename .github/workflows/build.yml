@@ -28,11 +28,29 @@ jobs:
         env:
           ANDROID_HOME: /usr/local/lib/android/sdk
 
+      - name: Generate signing key and sign APK
+        run: |
+          # Generate a keystore (for this fork's builds)
+          keytool -genkeypair -v -keystore /tmp/televip.keystore \
+            -alias televip -keyalg RSA -keysize 2048 -validity 10000 \
+            -storepass televip123 -keypass televip123 \
+            -dname "CN=TeleVip, OU=TeleVip, O=TeleVip, L=Jakarta, ST=Jakarta, C=ID"
+          # Sign the APK
+          APK=$(ls app/build/outputs/apk/release/*.apk | head -1)
+          SIGNED_APK="app/build/outputs/apk/release/televip-3.6.3-telegram13-signed.apk"
+          /usr/local/lib/android/sdk/build-tools/36.0.0/apksigner sign \
+            --ks /tmp/televip.keystore \
+            --ks-pass:televip123 --key-pass:televip123 \
+            --out "$SIGNED_APK" "$APK"
+          # Verify
+          /usr/local/lib/android/sdk/build-tools/36.0.0/apksigner verify --print-certs "$SIGNED_APK" | head -3
+          echo "SIGNED_APK=$SIGNED_APK" >> $GITHUB_ENV
+
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: televip-lsposed-apk
-          path: app/build/outputs/apk/release/*.apk
+          path: ${{ env.SIGNED_APK }}
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
@@ -45,6 +63,8 @@ jobs:
             - Supports Telegram 13.0.1 (71679) and 12.8.3 (69222)
             - Core features verified: Ghost Mode, Hide Seen/Typing, Show Deleted Messages, Local Premium, Download Boost
             - See README for full 13.x compatibility notes
-          files: app/build/outputs/apk/release/*.apk
+
+            > Note: This fork is signed with a new key. Uninstall the original TeleVip before installing.
+          files: ${{ env.SIGNED_APK }}
           draft: false
           prerelease: false
