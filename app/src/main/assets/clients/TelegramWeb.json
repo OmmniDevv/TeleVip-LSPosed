@@ -1,0 +1,1 @@
+{"classes":[{"o":"org.telegram.ui.ActionBar.AlertDialog$OnButtonClickListener","r":"org.telegram.ui.ActionBar.f2"}],"fields":[{"c":"AlertDialog$Builder","o":"alertDialog","r":"a"}],"methods":[{"c":"AlertDialog$Builder","o":"setPositiveButton","r":"k"},{"c":"AlertDialog$Builder","o":"setView","r":"n"},{"c":"AlertDialog$OnButtonClickListener","o":"onClick","r":"i"}]}
