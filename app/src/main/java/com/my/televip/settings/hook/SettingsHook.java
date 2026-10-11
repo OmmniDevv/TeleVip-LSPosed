@@ -178,5 +178,86 @@ public class SettingsHook {
         }
 
     }
+
+    /**
+     * Telegram 13.x settings injection.
+     * The 13.x SettingsActivity (obfuscated, e.g. org.telegram.ui.az) no longer uses
+     * SettingCell$Factory / fillItems, so we inject a TeleVip entry button directly
+     * into the settings view hierarchy.
+     */
+    public void newSettings13(Class<?> SettingsActivityClass, SettingsController settingsController) {
+        try {
+            HMethod.hookMethod(SettingsActivityClass, "createView", android.content.Context.class, new BaseMethodHook() {
+                @Override
+                protected void afterMethod(final MethodHookParam param) {
+                    try {
+                        Object result = param.getResult();
+                        if (!(result instanceof android.view.View)) return;
+                        final android.view.View rootView = (android.view.View) result;
+                        final android.content.Context ctx = rootView.getContext();
+                        if (ctx == null) return;
+
+                        rootView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    // Avoid adding twice (e.g. on view recreation)
+                                    if (rootView.findViewWithTag("televip_settings_entry") != null) return;
+
+                                    android.widget.Button btn = new android.widget.Button(ctx);
+                                    btn.setTag("televip_settings_entry");
+                                    btn.setText("👻 TeleVip Settings");
+                                    btn.setAllCaps(false);
+                                    btn.setTextColor(0xFFFFFFFF);
+                                    btn.setBackgroundColor(0xFF8B5CF6);
+                                    int pad = (int) (16 * ctx.getResources().getDisplayMetrics().density);
+                                    btn.setPadding(pad, pad, pad, pad);
+
+                                    android.view.ViewGroup.LayoutParams lp;
+                                    android.view.ViewParent parent = rootView.getParent();
+                                    if (rootView instanceof android.view.ViewGroup) {
+                                        // Insert at top of the settings root if it's a container
+                                        android.view.ViewGroup group = (android.view.ViewGroup) rootView;
+                                        lp = new android.view.ViewGroup.LayoutParams(
+                                                android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+                                                android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
+                                        btn.setLayoutParams(lp);
+                                        group.addView(btn, 0);
+                                    } else if (parent instanceof android.view.ViewGroup) {
+                                        android.view.ViewGroup group = (android.view.ViewGroup) parent;
+                                        lp = new android.view.ViewGroup.LayoutParams(
+                                                android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+                                                android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
+                                        btn.setLayoutParams(lp);
+                                        int idx = group.indexOfChild(rootView);
+                                        group.addView(btn, Math.max(0, idx));
+                                    } else {
+                                        return;
+                                    }
+
+                                    btn.setOnClickListener(new android.view.View.OnClickListener() {
+                                        @Override
+                                        public void onClick(android.view.View v) {
+                                            try {
+                                                settingsController.openView();
+                                            } catch (Throwable t) {
+                                                Logger.e(t);
+                                            }
+                                        }
+                                    });
+                                } catch (Throwable t) {
+                                    Logger.e(t);
+                                }
+                            }
+                        });
+                    } catch (Throwable t) {
+                        Logger.e(t);
+                    }
+                }
+            });
+        } catch (Throwable t) {
+            Logger.e(t);
+        }
+    }
 }
 

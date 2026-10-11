@@ -29,6 +29,10 @@ public class SettingsManager {
         SettingsHook settings = new SettingsHook();
         if (SettingsActivityClass != null && SettingsActivity$SettingCell$FactoryClass != null) {
             settings.newSettings(SettingsActivityClass, SettingsActivity$SettingCell$FactoryClass, settingsController);
+        } else if (SettingsActivityClass != null) {
+            // Telegram 13.x: SettingsActivity exists (obfuscated) but SettingCell$Factory is gone.
+            // Use the 13.x injection path.
+            settings.newSettings13(SettingsActivityClass, settingsController);
         } else {
             settings.oldSettings(settingsController);
         }

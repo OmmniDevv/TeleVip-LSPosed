@@ -7,6 +7,10 @@
   {
    "o": "org.telegram.ui.ChatActivity",
    "r": "org.telegram.ui.go"
+  },
+  {
+   "o": "org.telegram.ui.SettingsActivity",
+   "r": "org.telegram.ui.az"
   }
  ],
  "fields": [
